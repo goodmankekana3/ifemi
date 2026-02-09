@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For NTHABELENG 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ffb3c6, #ffe5ec);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 22px;
+      width: 90%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      z-index: 10;
+      position: relative;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #444;
+      font-size: 16px;
+      min-height: 90px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      margin: 12px 6px 0 6px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 4s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {transform: translateY(0) scale(1);}
+      100% {transform: translateY(-200px) scale(0.8); opacity: 0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hey NTHABELENG 💕</h1>
+    <p id="message">I know we can’t be together today… but I still wanted to sit with you for a bit 🫶🏽</p>
+    <button id="playfulBtn" class="btn">Tap me 💗</button>
+    <div id="valentineButtons" style="display:none;">
+      <button id="yesBtn" class="btn">YES 💖</button>
+      <button id="noBtn" class="btn">NO 😏</button>
+    </div>
+  </div>
+
+  <!-- Music iframe -->
+  <iframe id="music" width="0" height="0" src="https://www.youtube.com/embed/sJQLQEgqGtw?autoplay=0&loop=1&playlist=sJQLQEgqGtw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+  <script>
+    const messages = [
+      "This is me being a little shy, but really wanting you to feel how special you are",
+      "Every small thing about you stays with me longer than you probably realise",
+      "If I was there, I’d be quiet… just close to you",
+      "I hope you feel safe, wanted, and loved — even through a screen",
+      "You mean more to me than I’m ever brave enough to say out loud",
+      "And every time you talk, and I listen…",
+      "maaaakes seeeense 💕"
+    ];
+
+    let index = 0;
+    let firstTap = false;
+
+    const btn = document.getElementById("playfulBtn");
+    const msg = document.getElementById("message");
+    const music = document.getElementById("music");
+    const valentineDiv = document.getElementById("valentineButtons");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = window.innerHeight + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    // Continuous floating hearts
+    setInterval(createHeart, 800);
+
+    // Keep playful button inside view
+    function randomPosition() {
+      const maxX = window.innerWidth - btn.offsetWidth - 20;
+      const maxY = window.innerHeight - btn.offsetHeight - 20;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    btn.addEventListener("mouseover", () => {
+      randomPosition();
+      createHeart();
+    });
+
+    btn.addEventListener("click", () => {
+      if (!firstTap) {
+        music.src += "&autoplay=1";
+        firstTap = true;
+      }
+      if (index < messages.length) {
+        msg.innerText = messages[index];
+        createHeart();
+        index++;
+      } else {
+        // Show Valentine buttons after last message
+        valentineDiv.style.display = "block";
+        btn.style.display = "none";
+        msg.innerText = "So… will you be my Valentine? ❤️";
+      }
+    });
+
+    // NO button moves away
+    noBtn.addEventListener("mouseover", () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      msg.innerText = "🥰 Yay! I’m so happy you said YES! 💕";
+      valentineDiv.style.display = "none";
+    });
+  </script>
+</body>
+</html>
