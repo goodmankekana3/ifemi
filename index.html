@@ -116,20 +116,7 @@
     // Continuous floating hearts
     setInterval(createHeart, 800);
 
-    // Keep playful button inside view
-    function randomPosition() {
-      const maxX = window.innerWidth - btn.offsetWidth - 20;
-      const maxY = window.innerHeight - btn.offsetHeight - 20;
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
-    }
-
-    btn.addEventListener("mouseover", () => {
-      randomPosition();
-      createHeart();
-    });
-
+    // FIRST BUTTON: stays fixed (no movement)
     btn.addEventListener("click", () => {
       if (!firstTap) {
         music.src += "&autoplay=1";
@@ -147,7 +134,7 @@
       }
     });
 
-    // NO button moves away
+    // NO button moves away teasingly
     noBtn.addEventListener("mouseover", () => {
       const maxX = window.innerWidth - noBtn.offsetWidth - 20;
       const maxY = window.innerHeight - noBtn.offsetHeight - 20;
